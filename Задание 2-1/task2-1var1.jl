@@ -1,25 +1,28 @@
 function getUserInput(msg="")
     print("$msg ")
       try
-        return parse(Float64,readline())
+        return parse(Int128,readline())
       catch
        println("-- Ошибка! Пожалуйста, введите число \n")
        getUserInput(msg)
       end
+    end
 
-# Определить тип перечисления
-@enum площядьшара=1обьемшара=2  
-end
+@enum SphereCalculations calcVolume = 1  calcArea = 2
+сhoice = getUserInput("Введите число, соответствующее выбору:"*
+                   " $(Int(calcVolume::SphereCalculations)) - рассчитать объем шара"*
+                   " $(Int(calcArea::SphereCalculations))  - рассчитать площадь шара");
+action = SphereCalculations(сhoice);
 
-# Получаем данные от пользователя
-r = getUserInput("Введите радиус шара \n\n");
+# Получаем радиус от пользователя
+r = getUserInput("Введите радиус шара:");
 
-# Вычисляем объем шара
-V = 4/3 * pi * (r^3);
-
-# Вычисляем площадь шара
-S = 4 * pi * (r^2);
-
-# Выводим результаты вычислений на экран
-println("Площадь поверхности шара равна ", S);
-println("Объем шара равен ", V);
+if action == calcVolume::SphereCalculations
+# Вычисляем объем шара и выврдим результат вычислений на экран
+  V = 4/3 * pi * (r^3);
+  println("Объем шара равен ", V);
+else action == calcArea::SphereCalculations
+# Вычисляем площадь шара и выврдим результат вычислений на экран
+  S = 4 * pi * (r^2);
+  println("Площадь поверхности шара равна ", S);
+end;
